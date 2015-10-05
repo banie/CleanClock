@@ -1,3 +1,9 @@
+# Crashlytics configuations
+com_crashlytics_export_strings.xml
+
+# Signing files
+.signing/
+
 # Built application files
 *.apk
 *.ap_

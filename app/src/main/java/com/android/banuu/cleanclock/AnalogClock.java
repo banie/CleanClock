@@ -45,9 +45,6 @@ public class AnalogClock extends View {
   private final Drawable mSecondHand;
   private float mThickness;
   private int mInternalPadding;
-  private int mRadius;
-  private int mCircleCenterX;
-  private int mCircleCenterY;
   private final Handler mHandler = new Handler();
   private final Context mContext;
   private Time mCalendar;
@@ -156,22 +153,6 @@ public class AnalogClock extends View {
   }
 
   @Override
-  protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-    super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-    int width = getMeasuredWidth();// Get View Width
-    int height = getMeasuredHeight();// Get View Height
-
-    int size = (width > height) ? height : width; // Choose the smaller
-    // between width and
-    // height to make a
-    // square
-
-    mCircleCenterX = width / 2; // Center X for circle
-    mCircleCenterY = height / 2; // Center Y for circle
-    mRadius = (size / 2) - mInternalPadding; // Radius of the outer circle
-  }
-
-  @Override
   protected void onSizeChanged(int w, int h, int oldw, int oldh) {
     super.onSizeChanged(w, h, oldw, oldh);
     mChanged = true;
@@ -192,7 +173,11 @@ public class AnalogClock extends View {
     int x = availableWidth / 2;
     int y = availableHeight / 2;
 
-    drawCircle(canvas, mCircleCenterX, mCircleCenterY, mRadius, mCirclePaint);
+    // Choose the smaller between width and height to make a square
+    int size = (availableWidth > availableHeight) ? availableHeight : availableWidth;
+    int radius = (size / 2) - mInternalPadding; // Radius of the outer circle
+
+    drawCircle(canvas, x, y, radius, mCirclePaint);
     drawHand(canvas, mHourHand, x, y, mHour / 12.0f * 360.0f, changed);
     drawHand(canvas, mMinuteHand, x, y, mMinutes / 60.0f * 360.0f, changed);
     if (!mNoSeconds) {

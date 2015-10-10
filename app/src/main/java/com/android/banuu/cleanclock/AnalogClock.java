@@ -89,9 +89,9 @@ public class AnalogClock extends View {
     super(context, attrs, defStyle);
     mContext = context;
     Resources r = mContext.getResources();
-    mHourHand = r.getDrawable(R.drawable.clock_analog_hour_mipmap);
-    mMinuteHand = r.getDrawable(R.drawable.clock_analog_minute_mipmap);
-    mSecondHand = r.getDrawable(R.drawable.clock_analog_second_mipmap);
+    mHourHand = r.getDrawable(R.drawable.hourhand);
+    mMinuteHand = r.getDrawable(R.drawable.minhand);
+    mSecondHand = r.getDrawable(R.drawable.secondhand);
 
     TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.AnalogClock);
     try {

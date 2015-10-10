@@ -11,8 +11,8 @@
     android:layout_width="300dp"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:hand_hour="@drawable/clock_analog_hour_mipmap"
-    android:hand_minute="@drawable/clock_analog_minute_mipmap"
+    android:hand_hour="@drawable/hourhand"
+    android:hand_minute="@drawable/minhand"
     custom:thinness="4dp"/>
 
   <!-- This FrameLayout insets its children based on system windows using

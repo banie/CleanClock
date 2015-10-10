@@ -25,6 +25,7 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.os.Handler;
 import android.text.format.DateUtils;
 import android.text.format.Time;
@@ -40,11 +41,14 @@ import static android.graphics.Paint.Style.STROKE;
  * minutes.
  */
 public class AnalogClock extends View {
-  private final Drawable mHourHand;
-  private final Drawable mMinuteHand;
-  private final Drawable mSecondHand;
+  private final LayerDrawable mHourHand;
+  private final LayerDrawable mMinuteHand;
+  private final LayerDrawable mSecondHand;
   private float mThickness;
   private int mInternalPadding;
+  private int mCenterX;
+  private int mCenterY;
+  private int mRadius;
   private final Handler mHandler = new Handler();
   private final Context mContext;
   private Time mCalendar;
@@ -89,9 +93,9 @@ public class AnalogClock extends View {
     super(context, attrs, defStyle);
     mContext = context;
     Resources r = mContext.getResources();
-    mHourHand = r.getDrawable(R.drawable.hourhand);
-    mMinuteHand = r.getDrawable(R.drawable.minhand);
-    mSecondHand = r.getDrawable(R.drawable.secondhand);
+    mHourHand = (LayerDrawable) r.getDrawable(R.drawable.hourhand);
+    mMinuteHand = (LayerDrawable) r.getDrawable(R.drawable.minhand);
+    mSecondHand = (LayerDrawable) r.getDrawable(R.drawable.secondhand);
 
     TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.AnalogClock);
     try {
@@ -153,6 +157,21 @@ public class AnalogClock extends View {
   }
 
   @Override
+  protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+    super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
+    int availableWidth = getWidth();
+    int availableHeight = getHeight();
+
+    mCenterX = availableWidth / 2;
+    mCenterY = availableHeight / 2;
+
+    // Choose the smaller between width and height to make a square
+    int size = (availableWidth > availableHeight) ? availableHeight : availableWidth;
+    mRadius = (size / 2) - mInternalPadding; // Radius of the outer circle
+  }
+
+  @Override
   protected void onSizeChanged(int w, int h, int oldw, int oldh) {
     super.onSizeChanged(w, h, oldw, oldh);
     mChanged = true;
@@ -167,29 +186,20 @@ public class AnalogClock extends View {
       mChanged = false;
     }
 
-    int availableWidth = getWidth();
-    int availableHeight = getHeight();
-
-    int x = availableWidth / 2;
-    int y = availableHeight / 2;
-
-    // Choose the smaller between width and height to make a square
-    int size = (availableWidth > availableHeight) ? availableHeight : availableWidth;
-    int radius = (size / 2) - mInternalPadding; // Radius of the outer circle
-
-    drawCircle(canvas, x, y, radius, mCirclePaint);
-    drawHand(canvas, mHourHand, x, y, mHour / 12.0f * 360.0f, changed);
-    drawHand(canvas, mMinuteHand, x, y, mMinutes / 60.0f * 360.0f, changed);
+    drawCircle(canvas, mCenterX, mCenterY, mRadius, mCirclePaint);
+    drawHand(canvas, mHourHand, mCenterX, mCenterY, mRadius, mHour / 12.0f * 360.0f, changed);
+    drawHand(canvas, mMinuteHand, mCenterX, mCenterY, mRadius, mMinutes / 60.0f * 360.0f, changed);
     if (!mNoSeconds) {
-      drawHand(canvas, mSecondHand, x, y, mSeconds / 60.0f * 360.0f, changed);
+      drawHand(canvas, mSecondHand, mCenterX, mCenterY, mRadius, mSeconds / 60.0f * 360.0f, changed);
     }
   }
 
-  private void drawCircle(Canvas canvas, float x, float y, float radius, Paint paint) {
+  private void drawCircle(Canvas canvas, float x, float y, int radius, Paint paint) {
     canvas.drawCircle(x, y, radius, paint);
   }
 
-  private void drawHand(Canvas canvas, Drawable hand, int x, int y, float angle, boolean changed) {
+  private void drawHand(Canvas canvas, Drawable hand, int x, int y, int radius, float angle,
+      boolean changed) {
     canvas.save();
     canvas.rotate(angle, x, y);
     if (changed) {

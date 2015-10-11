@@ -187,10 +187,10 @@ public class AnalogClock extends View {
     }
 
     drawCircle(canvas, mCenterX, mCenterY, mRadius, mCirclePaint);
-    drawHand(canvas, mHourHand, mCenterX, mCenterY, mRadius, mHour / 12.0f * 360.0f, changed);
-    drawHand(canvas, mMinuteHand, mCenterX, mCenterY, mRadius, mMinutes / 60.0f * 360.0f, changed);
+    drawHand(canvas, mHourHand, mCenterX, mCenterY, mHour / 12.0f * 360.0f, changed);
+    drawHand(canvas, mMinuteHand, mCenterX, mCenterY, mMinutes / 60.0f * 360.0f, changed);
     if (!mNoSeconds) {
-      drawHand(canvas, mSecondHand, mCenterX, mCenterY, mRadius, mSeconds / 60.0f * 360.0f, changed);
+      drawHand(canvas, mSecondHand, mCenterX, mCenterY, mSeconds / 60.0f * 360.0f, changed);
     }
   }
 
@@ -198,7 +198,7 @@ public class AnalogClock extends View {
     canvas.drawCircle(x, y, radius, paint);
   }
 
-  private void drawHand(Canvas canvas, Drawable hand, int x, int y, int radius, float angle,
+  private void drawHand(Canvas canvas, Drawable hand, int x, int y, float angle,
       boolean changed) {
     canvas.save();
     canvas.rotate(angle, x, y);

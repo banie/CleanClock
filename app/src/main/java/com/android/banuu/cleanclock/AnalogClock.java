@@ -97,9 +97,12 @@ public class AnalogClock extends View {
     mMinuteHand = (LayerDrawable) r.getDrawable(R.drawable.minhand);
     mSecondHand = (LayerDrawable) r.getDrawable(R.drawable.secondhand);
 
+    int dialColor = R.color.white;
     TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.AnalogClock);
     try {
       mThickness = attributes.getDimensionPixelSize(R.styleable.AnalogClock_thinness, -1);
+      dialColor = attributes.getColor(R.styleable.AnalogClock_dial_color,
+          getResources().getColor(R.color.white));
       if (mThickness == -1) {
         mThickness = r.getDimension(R.dimen.clock_thinness);
       }
@@ -109,7 +112,7 @@ public class AnalogClock extends View {
 
     mCirclePaint = new Paint();
     mCirclePaint.setStyle(STROKE);
-    mCirclePaint.setColor(getResources().getColor(R.color.clock_white));
+    mCirclePaint.setColor(dialColor);
     mCirclePaint.setAntiAlias(true);
     mCirclePaint.setStrokeWidth(mThickness);
 
@@ -198,8 +201,7 @@ public class AnalogClock extends View {
     canvas.drawCircle(x, y, radius, paint);
   }
 
-  private void drawHand(Canvas canvas, Drawable hand, int x, int y, float angle,
-      boolean changed) {
+  private void drawHand(Canvas canvas, Drawable hand, int x, int y, float angle, boolean changed) {
     canvas.save();
     canvas.rotate(angle, x, y);
     if (changed) {

@@ -27,6 +27,7 @@ import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.util.AttributeSet;
@@ -44,7 +45,6 @@ public class AnalogClock extends View {
   private final LayerDrawable mHourHand;
   private final LayerDrawable mMinuteHand;
   private final LayerDrawable mSecondHand;
-  private float mThickness;
   private int mInternalPadding;
   private int mCenterX;
   private int mCenterY;
@@ -93,18 +93,19 @@ public class AnalogClock extends View {
     super(context, attrs, defStyle);
     mContext = context;
     Resources r = mContext.getResources();
-    mHourHand = (LayerDrawable) r.getDrawable(R.drawable.hourhand);
-    mMinuteHand = (LayerDrawable) r.getDrawable(R.drawable.minhand);
-    mSecondHand = (LayerDrawable) r.getDrawable(R.drawable.secondhand);
+    mHourHand = (LayerDrawable) ContextCompat.getDrawable(context, R.drawable.hourhand);
+    mMinuteHand = (LayerDrawable) ContextCompat.getDrawable(context, R.drawable.minhand);
+    mSecondHand = (LayerDrawable) ContextCompat.getDrawable(context, R.drawable.secondhand);
 
     int dialColor = R.color.white;
+    float thickness = -1;
     TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.AnalogClock);
     try {
-      mThickness = attributes.getDimensionPixelSize(R.styleable.AnalogClock_thinness, -1);
       dialColor = attributes.getColor(R.styleable.AnalogClock_dial_color,
-          getResources().getColor(R.color.white));
-      if (mThickness == -1) {
-        mThickness = r.getDimension(R.dimen.clock_thinness);
+          ContextCompat.getColor(context, R.color.white));
+      thickness = attributes.getDimensionPixelSize(R.styleable.AnalogClock_thinness, -1);
+      if (thickness == -1) {
+        thickness = r.getDimension(R.dimen.clock_thinness);
       }
     } finally {
       attributes.recycle();
@@ -114,7 +115,7 @@ public class AnalogClock extends View {
     mCirclePaint.setStyle(STROKE);
     mCirclePaint.setColor(dialColor);
     mCirclePaint.setAntiAlias(true);
-    mCirclePaint.setStrokeWidth(mThickness);
+    mCirclePaint.setStrokeWidth(thickness);
 
     mCalendar = new Time();
     mInternalPadding =

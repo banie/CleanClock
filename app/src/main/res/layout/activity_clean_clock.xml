@@ -9,11 +9,15 @@
   <com.android.banuu.cleanclock.AnalogClock
     android:id="@+id/fullscreen_content"
     android:layout_width="300dp"
-    android:layout_height="match_parent"
+    android:layout_height="300dp"
     android:layout_gravity="center"
     android:hand_hour="@drawable/hourhand"
     android:hand_minute="@drawable/minhand"
-    custom:thinness="4dp"/>
+    custom:dial_thickness="4dp"
+    custom:dial_color="@color/black"
+    custom:hour_color="@color/yellow"
+    custom:minute_color="@color/yellow"
+    custom:second_color="@color/redorange"/>
 
   <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->

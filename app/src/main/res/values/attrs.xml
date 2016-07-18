@@ -25,7 +25,7 @@
   </declare-styleable>
 
   <declare-styleable name="AnalogClock">
-    <attr name="thinness" format="dimension" />
+    <attr name="dial_thickness" format="dimension" />
     <attr name="dial_color" format="color" />
     <attr name="hour_color" format="color" />
     <attr name="minute_color" format="color" />

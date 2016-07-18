@@ -113,9 +113,9 @@ public class AnalogClock extends View {
           ContextCompat.getColor(context, R.color.white));
       secondColor = attributes.getColor(R.styleable.AnalogClock_second_color,
           ContextCompat.getColor(context, R.color.red_crayola));
-      thickness = attributes.getDimensionPixelSize(R.styleable.AnalogClock_thinness, -1);
+      thickness = attributes.getDimensionPixelSize(R.styleable.AnalogClock_dial_thickness, -1);
       if (thickness == -1) {
-        thickness = r.getDimension(R.dimen.clock_thinness);
+        thickness = r.getDimension(R.dimen.dial_thickness);
       }
     } finally {
       attributes.recycle();

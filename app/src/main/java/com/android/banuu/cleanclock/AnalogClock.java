@@ -25,6 +25,7 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
@@ -98,11 +99,20 @@ public class AnalogClock extends View {
     mSecondHand = (LayerDrawable) ContextCompat.getDrawable(context, R.drawable.secondhand);
 
     int dialColor = R.color.white;
+    int hourColor = R.color.white;
+    int minuteColor = R.color.white;
+    int secondColor = R.color.red_crayola;
     float thickness = -1;
     TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.AnalogClock);
     try {
       dialColor = attributes.getColor(R.styleable.AnalogClock_dial_color,
           ContextCompat.getColor(context, R.color.white));
+      hourColor = attributes.getColor(R.styleable.AnalogClock_hour_color,
+          ContextCompat.getColor(context, R.color.white));
+      minuteColor = attributes.getColor(R.styleable.AnalogClock_minute_color,
+          ContextCompat.getColor(context, R.color.white));
+      secondColor = attributes.getColor(R.styleable.AnalogClock_second_color,
+          ContextCompat.getColor(context, R.color.red_crayola));
       thickness = attributes.getDimensionPixelSize(R.styleable.AnalogClock_thinness, -1);
       if (thickness == -1) {
         thickness = r.getDimension(R.dimen.clock_thinness);
@@ -116,6 +126,10 @@ public class AnalogClock extends View {
     mCirclePaint.setColor(dialColor);
     mCirclePaint.setAntiAlias(true);
     mCirclePaint.setStrokeWidth(thickness);
+
+    ((GradientDrawable) mHourHand.getDrawable(0)).setColor(hourColor);
+    ((GradientDrawable) mMinuteHand.getDrawable(0)).setColor(minuteColor);
+    ((GradientDrawable) mSecondHand.getDrawable(0)).setColor(secondColor);
 
     mCalendar = new Time();
     mInternalPadding =

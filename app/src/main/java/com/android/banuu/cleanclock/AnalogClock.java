@@ -102,7 +102,9 @@ public class AnalogClock extends View {
     int hourColor = R.color.white;
     int minuteColor = R.color.white;
     int secondColor = R.color.red_crayola;
-    float thickness = -1;
+    float thickness = r.getDimensionPixelSize(R.dimen.default_hour_height);
+    int hourWidth = r.getDimensionPixelSize(R.dimen.default_hour_width);
+    int hourHeight = r.getDimensionPixelSize(R.dimen.default_hour_height);
     TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.AnalogClock);
     try {
       dialColor = attributes.getColor(R.styleable.AnalogClock_dial_color,
@@ -115,8 +117,12 @@ public class AnalogClock extends View {
           ContextCompat.getColor(context, R.color.red_crayola));
       thickness = attributes.getDimensionPixelSize(R.styleable.AnalogClock_dial_thickness, -1);
       if (thickness == -1) {
-        thickness = r.getDimension(R.dimen.dial_thickness);
+        thickness = r.getDimension(R.dimen.default_dial_thickness);
       }
+      hourWidth = attributes.getDimensionPixelSize(R.styleable.AnalogClock_hour_width,
+          r.getDimensionPixelSize(R.dimen.default_hour_width));
+      hourHeight = attributes.getDimensionPixelSize(R.styleable.AnalogClock_hour_height,
+          r.getDimensionPixelSize(R.dimen.default_hour_height));
     } finally {
       attributes.recycle();
     }
@@ -127,7 +133,10 @@ public class AnalogClock extends View {
     mCirclePaint.setAntiAlias(true);
     mCirclePaint.setStrokeWidth(thickness);
 
-    ((GradientDrawable) mHourHand.getDrawable(0)).setColor(hourColor);
+    GradientDrawable hourHand = (GradientDrawable) mHourHand.getDrawable(0);
+    hourHand.setColor(hourColor);
+    hourHand.setSize(hourWidth, hourHeight);
+
     ((GradientDrawable) mMinuteHand.getDrawable(0)).setColor(minuteColor);
     ((GradientDrawable) mSecondHand.getDrawable(0)).setColor(secondColor);
 

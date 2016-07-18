@@ -23,5 +23,7 @@
   <dimen name="time_text_size">120dip</dimen>
   <dimen name="ampm_text_size">20dip</dimen>
   <dimen name="date_text_size">15sp</dimen>
-  <dimen name="dial_thickness">2dp</dimen>
+  <dimen name="default_dial_thickness">2dp</dimen>
+  <dimen name="default_hour_width">4dp</dimen>
+  <dimen name="default_hour_height">100dp</dimen>
 </resources>

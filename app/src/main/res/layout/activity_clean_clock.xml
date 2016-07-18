@@ -16,6 +16,8 @@
     custom:dial_thickness="4dp"
     custom:dial_color="@color/black"
     custom:hour_color="@color/yellow"
+    custom:hour_width="10dp"
+    custom:hour_height="120dp"
     custom:minute_color="@color/yellow"
     custom:second_color="@color/redorange"/>
 

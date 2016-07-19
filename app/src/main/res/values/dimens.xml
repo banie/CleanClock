@@ -26,4 +26,8 @@
   <dimen name="default_dial_thickness">2dp</dimen>
   <dimen name="default_hour_width">4dp</dimen>
   <dimen name="default_hour_height">100dp</dimen>
+  <dimen name="default_minute_width">4dp</dimen>
+  <dimen name="default_minute_height">150dp</dimen>
+  <dimen name="default_second_width">4dp</dimen>
+  <dimen name="default_second_height">150dp</dimen>
 </resources>

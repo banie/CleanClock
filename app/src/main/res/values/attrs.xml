@@ -32,6 +32,10 @@
     <attr name="second_color" format="color" />
     <attr name="hour_width" format="dimension" />
     <attr name="hour_height" format="dimension" />
+    <attr name="minute_width" format="dimension" />
+    <attr name="minute_height" format="dimension" />
+    <attr name="second_width" format="dimension" />
+    <attr name="second_height" format="dimension" />
   </declare-styleable>
 
   <declare-styleable name="TextTime">

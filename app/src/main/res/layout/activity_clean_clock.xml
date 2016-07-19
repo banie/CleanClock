@@ -18,6 +18,10 @@
     custom:hour_color="@color/yellow"
     custom:hour_width="10dp"
     custom:hour_height="120dp"
+    custom:minute_width="2dp"
+    custom:minute_height="160dp"
+    custom:second_width="2dp"
+    custom:second_height="160dp"
     custom:minute_color="@color/yellow"
     custom:second_color="@color/redorange"/>
 

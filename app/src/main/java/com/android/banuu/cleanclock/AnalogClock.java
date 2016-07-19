@@ -105,6 +105,10 @@ public class AnalogClock extends View {
     float thickness = r.getDimensionPixelSize(R.dimen.default_hour_height);
     int hourWidth = r.getDimensionPixelSize(R.dimen.default_hour_width);
     int hourHeight = r.getDimensionPixelSize(R.dimen.default_hour_height);
+    int minuteWidth = r.getDimensionPixelSize(R.dimen.default_minute_width);
+    int minuteHeight = r.getDimensionPixelSize(R.dimen.default_minute_height);
+    int secondWidth = r.getDimensionPixelSize(R.dimen.default_second_width);
+    int secondHeight = r.getDimensionPixelSize(R.dimen.default_second_height);
     TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.AnalogClock);
     try {
       dialColor = attributes.getColor(R.styleable.AnalogClock_dial_color,
@@ -123,6 +127,14 @@ public class AnalogClock extends View {
           r.getDimensionPixelSize(R.dimen.default_hour_width));
       hourHeight = attributes.getDimensionPixelSize(R.styleable.AnalogClock_hour_height,
           r.getDimensionPixelSize(R.dimen.default_hour_height));
+      minuteWidth = attributes.getDimensionPixelSize(R.styleable.AnalogClock_minute_width,
+          r.getDimensionPixelSize(R.dimen.default_minute_width));
+      minuteHeight = attributes.getDimensionPixelSize(R.styleable.AnalogClock_minute_height,
+          r.getDimensionPixelSize(R.dimen.default_minute_height));
+      secondWidth = attributes.getDimensionPixelSize(R.styleable.AnalogClock_second_width,
+          r.getDimensionPixelSize(R.dimen.default_second_width));
+      secondHeight = attributes.getDimensionPixelSize(R.styleable.AnalogClock_second_height,
+          r.getDimensionPixelSize(R.dimen.default_second_height));
     } finally {
       attributes.recycle();
     }
@@ -137,8 +149,13 @@ public class AnalogClock extends View {
     hourHand.setColor(hourColor);
     hourHand.setSize(hourWidth, hourHeight);
 
-    ((GradientDrawable) mMinuteHand.getDrawable(0)).setColor(minuteColor);
-    ((GradientDrawable) mSecondHand.getDrawable(0)).setColor(secondColor);
+    GradientDrawable minuteHand = (GradientDrawable) mMinuteHand.getDrawable(0);
+    minuteHand.setColor(minuteColor);
+    minuteHand.setSize(minuteWidth, minuteHeight);
+
+    GradientDrawable secondHand = (GradientDrawable) mSecondHand.getDrawable(0);
+    secondHand.setColor(secondColor);
+    secondHand.setSize(secondWidth, secondHeight);
 
     mCalendar = new Time();
     mInternalPadding =

@@ -79,7 +79,7 @@ public class AnalogClock extends View {
       AnalogClock.this.postDelayed(mClockTick, 1000);
     }
   };
-  private boolean mNoSeconds = false;
+  private boolean mShowSecondsHand = false;
   private Paint mCirclePaint;
 
   public AnalogClock(Context context) {
@@ -135,6 +135,7 @@ public class AnalogClock extends View {
           r.getDimensionPixelSize(R.dimen.default_second_width));
       secondHeight = attributes.getDimensionPixelSize(R.styleable.AnalogClock_second_height,
           r.getDimensionPixelSize(R.dimen.default_second_height));
+      mShowSecondsHand = attributes.getBoolean(R.styleable.AnalogClock_show_second, true);
     } finally {
       attributes.recycle();
     }
@@ -233,7 +234,7 @@ public class AnalogClock extends View {
     drawCircle(canvas, mCenterX, mCenterY, mRadius, mCirclePaint);
     drawHand(canvas, mHourHand, mCenterX, mCenterY, mHour / 12.0f * 360.0f, changed);
     drawHand(canvas, mMinuteHand, mCenterX, mCenterY, mMinutes / 60.0f * 360.0f, changed);
-    if (!mNoSeconds) {
+    if (mShowSecondsHand) {
       drawHand(canvas, mSecondHand, mCenterX, mCenterY, mSeconds / 60.0f * 360.0f, changed);
     }
   }
@@ -286,7 +287,7 @@ public class AnalogClock extends View {
   }
 
   public void enableSeconds(boolean enable) {
-    mNoSeconds = !enable;
+    mShowSecondsHand = enable;
   }
 }
 

@@ -36,6 +36,7 @@
     <attr name="minute_height" format="dimension" />
     <attr name="second_width" format="dimension" />
     <attr name="second_height" format="dimension" />
+    <attr name="show_second" format="boolean" />
   </declare-styleable>
 
   <declare-styleable name="TextTime">
